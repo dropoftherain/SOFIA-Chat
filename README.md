@@ -8,3 +8,6 @@ for chatting about the SOFIA Flow 88 catheter.
 ```bash
 export OPENAI_API_KEY=sk-...
 dotnet run --project SofiaChat
+dotnet watch --project SofiaChat 
+
+# watch Launches URL automatically
