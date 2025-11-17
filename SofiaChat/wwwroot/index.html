@@ -1,11 +1,47 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>SOFIA Chat</title>
-  </head>
-  <body>
-    <h1>Hello from SOFIA Chat!</h1>
-    <p>This is the web interface of your .NET app.</p>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>SOFIA Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px; }
+    #log { white-space: pre-wrap; border: 1px solid #ddd; padding: 12px; min-height: 220px; }
+    input, button { padding: 8px; }
+    .me { color: #333; }
+    .ai { color: #0a58ca; }
+  </style>
+</head>
+<body>
+  <h1>SOFIA Flow 88 – Chat</h1>
+  <div id="log"></div>
+  <div style="margin-top:12px;">
+    <input id="msg" size="60" placeholder="Ask in English…" />
+    <button id="send">Send</button>
+  </div>
+
+<script>
+const log = document.getElementById('log');
+const msg = document.getElementById('msg');
+
+async function send() {
+  const m = msg.value.trim(); if (!m) return;
+  log.textContent += `\nYou: ${m}`;
+  msg.value = ''; msg.focus();
+  const r = await fetch('/api/chat', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ message: m })
+  });
+  const data = await r.json();
+  if (data.answer) {
+    log.textContent += `\nSOFIA: ${data.answer}\n`;
+  } else {
+    log.textContent += `\n[Error] ${JSON.stringify(data)}\n`;
+  }
+}
+document.getElementById('send').onclick = send;
+msg.addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
+</script>
+</body>
 </html>
