@@ -9,5 +9,11 @@ for chatting about the SOFIA Flow 88 catheter.
 export OPENAI_API_KEY="your-openai-api-key-here"
 dotnet run --project SofiaChat
 dotnet watch --project SofiaChat run --urls http://localhost:5088
+```
 
-# watch Launches URL automatically
+-> watch Launches URL automatically
+
+## Ask questions
+![example.png]
+
+
